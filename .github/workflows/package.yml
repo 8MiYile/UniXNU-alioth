@@ -33,7 +33,7 @@ jobs:
       - working-directory: device
         run: |
           git submodule sync --recursive
-          git submodule update --init --remote --recursive
+          git submodule update --init --remote --recursive --depth 1
       - uses: actions/checkout@v7
         with:
           repository: UniXNU/UniXNU
@@ -41,7 +41,7 @@ jobs:
       - working-directory: UniXNU
         run: |
           git submodule sync --recursive
-          git submodule update --init --remote --recursive
+          git submodule update --init --remote --recursive --depth 1
       - uses: actions/checkout@v7
         with:
           repository: FFT-infra/uefi-alioth
@@ -49,7 +49,7 @@ jobs:
       - working-directory: uefi-alioth
         run: |
           git submodule sync --recursive
-          git submodule update --init --remote --recursive
+          git submodule update --init --remote --recursive --depth 1
       - name: tools
         run: |
           brew install dtc llvm lld cmake mtools blacktop/tap/ipsw
