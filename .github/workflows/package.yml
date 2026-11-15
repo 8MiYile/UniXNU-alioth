@@ -27,20 +27,29 @@ jobs:
     runs-on: macos-26
     timeout-minutes: 180
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           path: device
-          submodules: recursive
-      - uses: actions/checkout@v4
+      - working-directory: device
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --remote --recursive
+      - uses: actions/checkout@v7
         with:
           repository: UniXNU/UniXNU
           path: UniXNU
-          submodules: recursive
-      - uses: actions/checkout@v4
+      - working-directory: UniXNU
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --remote --recursive
+      - uses: actions/checkout@v7
         with:
           repository: FFT-infra/uefi-alioth
           path: uefi-alioth
-          submodules: recursive   # the firmware volume builds from the checkout's submodules
+      - working-directory: uefi-alioth
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --remote --recursive
       - name: tools
         run: |
           brew install dtc llvm lld cmake mtools blacktop/tap/ipsw
